@@ -1,0 +1,81 @@
+body {
+    background: linear-gradient(to right, 
+        #a1a1a0, 
+        #979392, 
+        #383e42, 
+        #42698c, 
+        #004f7c, 
+        #007cb0, 
+        #c5c7c4);
+    background-size: 300% 300%;
+    animation: gradientAnimation 15s ease infinite; 
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%; /* Comienza en la posición inicial */
+    }
+    50% {
+        background-position: 100% 50%; /* Cambia a la posición final */
+    }
+    100% {
+        background-position: 0% 50%; /* Regresa a la posición inicial */
+    }
+}
+.container {
+    display: flex; /* Usar flexbox para disposición */
+}
+
+/* Estilos del menú lateral */
+.sidebar {
+    width: 250px; /* Ancho del menú */
+    background-color: #343a40; /* Color de fondo */
+    color: white;
+    padding: 20px; /* Espaciado interno */
+    position: fixed; /* Fijo en la izquierda */
+    height: 100%; /* Altura completa */
+}
+
+.sidebar h2 {
+    margin: 0 0 20px 0; /* Margen inferior */
+}
+
+.sidebar ul {
+    list-style-type: none; /* Sin viñetas */
+    padding: 0; /* Sin relleno */
+}
+
+.sidebar ul li {
+    margin: 10px 0; /* Margen entre elementos */
+}
+
+.sidebar ul li a {
+    color: white; /* Color del texto */
+    text-decoration: none; /* Sin subrayado */
+    display: flex; /* Flex para icono y texto */
+    align-items: center; /* Centrar verticalmente */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background 0.3s; /* Transición suave */
+}
+
+.sidebar ul li a:hover {
+    background: #495057; /* Color de fondo al pasar el ratón */
+}
+
+/* Estilos del contenido principal */
+.content {
+    margin-left: 270px; /* Dejar espacio para el menú */
+    padding: 20px; /* Espaciado interno */
+    flex-grow: 1; /* Crecer para llenar el espacio */
+}
+/* Estilos del pie de página */
+.title {
+    text-align: center; /* Centrar texto */
+    margin: 20px 0; /* Margen superior e inferior */
+    font-size: 2em; /* Tamaño de fuente */
+    color: #ffffff; /* Color del texto (puedes cambiarlo) */
+}

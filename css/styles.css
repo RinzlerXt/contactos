@@ -1,0 +1,86 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, 
+        #a1a1a0, 
+        #979392, 
+        #383e42, 
+        #42698c, 
+        #004f7c, 
+        #007cb0, 
+        #c5c7c4);
+    background-size: 300% 300%;
+    animation: gradientAnimation 15s ease infinite; 
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%; /* Comienza en la posición inicial */
+    }
+    50% {
+        background-position: 100% 50%; /* Cambia a la posición final */
+    }
+    100% {
+        background-position: 0% 50%; /* Regresa a la posición inicial */
+    }
+}
+
+
+.login-container {
+    background-color: #2c3e50;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.login-container h2 {
+    color: #ecf0f1;
+    margin-bottom: 20px;
+}
+
+.login-container input[type="email"],
+.login-container input[type="password"],
+.login-container input[type="submit"],
+.login-container input[type="text"] {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+}
+
+.login-container input[type="email"],
+.login-container input[type="password"],
+.login-container input[type="text"]{
+    background-color: #34495e;
+    color: #ecf0f1;
+}
+
+.login-container input[type="submit"] {
+    background-color: #e74c3c;
+    color: #ecf0f1;
+    cursor: pointer;
+}
+
+.login-container input[type="submit"]:hover {
+    background-color: #c0392b;
+}
+
+.error {
+    color: #e74c3c;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+.success {
+    color: #2ecc71;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
