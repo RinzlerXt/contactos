@@ -83,4 +83,10 @@ body {
     font-size: 0.9em;
     margin-top: 10px;
 }
+a{
+    color: white;
+}
+a:hover{
+    color: grey;
+}
 

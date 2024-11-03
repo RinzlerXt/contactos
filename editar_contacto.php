@@ -5,13 +5,10 @@ if (!isset($_SESSION['usuario_id'])) {
     exit();
 }
 
-// Incluir el archivo de configuración
 include('config.php');
 
-// Inicializar el mensaje
-$mensaje = "";
+$mensaje = '';
 
-// Manejar la actualización de un contacto
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
     $nombre = $_POST['nombre'];
@@ -19,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correo = $_POST['correo'];
 
     try {
-        // Actualizar el contacto
         $sql = "UPDATE contactos SET nombre = :nombre, telefono = :telefono, correo = :correo WHERE id = :id AND usuario_id = :usuario_id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':nombre', $nombre);
@@ -30,7 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':usuario_id', $usuario_id);
 
         if ($stmt->execute()) {
-            $mensaje = "Contacto actualizado exitosamente.";
+            $_SESSION['mensaje'] = "Contacto actualizado exitosamente.";
+            header("Location: ver_contactos.php");
+            exit();
         } else {
             $mensaje = "Error al actualizar el contacto.";
         }
@@ -39,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Obtener el contacto a editar
 $contacto = null;
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -52,7 +49,6 @@ if (isset($_GET['id'])) {
         $stmt->execute();
         $contacto = $stmt->fetch(PDO::FETCH_ASSOC);
         
-        // Comprobar si se encontró el contacto
         if (!$contacto) {
             $mensaje = "Contacto no encontrado.";
         }
@@ -61,9 +57,7 @@ if (isset($_GET['id'])) {
     }
 }
 
-// Definir el contenido para ser incluido en layout.php
-$content = '
-<h2>Editar Contacto</h2>';
+$content = '<h2 class="title">Editar Contacto</h2>';
 
 if ($mensaje) {
     $content .= "<p>$mensaje</p>";
@@ -84,8 +78,7 @@ if ($contacto) {
 
         <input type="submit" value="Actualizar Contacto">
     </form>';
-} else {
-    $content .= '<p>No se puede editar este contacto porque no existe.</p>';
 }
 
 include('layout.php');
+?>

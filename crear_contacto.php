@@ -9,28 +9,31 @@ if (!isset($_SESSION['usuario_id'])) {
 include('config.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Obtener datos del formulario
     $nombre = $_POST['nombre'];
     $telefono = $_POST['telefono'];
     $correo = $_POST['correo'];
-    $usuario_id = $_SESSION['usuario_id']; // Obtener el ID del usuario desde la sesión
+    $usuario_id = $_SESSION['usuario_id'];
 
-    try {
-        // Insertar contacto en la base de datos usando una sentencia preparada
-        $sql = "INSERT INTO contactos (nombre, telefono, correo, usuario_id) VALUES (:nombre, :telefono, :correo, :usuario_id)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':nombre', $nombre);
-        $stmt->bindParam(':telefono', $telefono);
-        $stmt->bindParam(':correo', $correo);
-        $stmt->bindParam(':usuario_id', $usuario_id); // Vincular el usuario_id
+    // Validación del formato del teléfono en PHP
+    if (!preg_match('/^(\d{3}-\d{3}-\d{4}|\d{10})$/', $telefono)) {
+        $mensaje = "Error: El número de teléfono debe tener el formato 123-456-7890 o 1234567890.";
+    } else {
+        try {
+            $sql = "INSERT INTO contactos (nombre, telefono, correo, usuario_id) VALUES (:nombre, :telefono, :correo, :usuario_id)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':nombre', $nombre);
+            $stmt->bindParam(':telefono', $telefono);
+            $stmt->bindParam(':correo', $correo);
+            $stmt->bindParam(':usuario_id', $usuario_id);
 
-        if ($stmt->execute()) {
-            $mensaje = "Contacto creado exitosamente.";
-        } else {
-            $mensaje = "Error al crear el contacto.";
+            if ($stmt->execute()) {
+                $mensaje = "Contacto creado exitosamente.";
+            } else {
+                $mensaje = "Error al crear el contacto.";
+            }
+        } catch (PDOException $e) {
+            $mensaje = "Error: " . $e->getMessage();
         }
-    } catch (PDOException $e) {
-        $mensaje = "Error: " . $e->getMessage();
     }
 }
 
@@ -41,7 +44,7 @@ $content = '
     <input type="text" id="nombre" name="nombre" required>
 
     <label for="telefono">Teléfono:</label>
-    <input type="text" id="telefono" name="telefono" required>
+    <input type="text" id="telefono" name="telefono" pattern="^(\d{3}-\d{3}-\d{4}|\d{10})$" title="Formato: 123-456-7890 o 1234567890" required>
 
     <label for="correo">Correo Electrónico:</label>
     <input type="email" id="correo" name="correo" required>
@@ -50,7 +53,7 @@ $content = '
 </form>';
 
 if (isset($mensaje)) {
-    $content .= "<p>$mensaje</p>";
+    $content .= "<p class='message'>$mensaje</p>";
 }
 
 include('layout.php');
