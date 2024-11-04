@@ -9,13 +9,11 @@ include('config.php');
 
 $mensaje = '';
 
-// Verificar si hay un mensaje en la sesión y asignarlo a `$mensaje`
 if (isset($_SESSION['mensaje'])) {
     $mensaje = $_SESSION['mensaje'];
-    unset($_SESSION['mensaje']); // Eliminar el mensaje de la sesión después de mostrarlo
+    unset($_SESSION['mensaje']);
 }
 
-// Manejar la eliminación de un contacto
 if (isset($_GET['eliminar'])) {
     $id = $_GET['eliminar'];
     try {
@@ -61,7 +59,6 @@ $content = '
     <input type="submit" value="Buscar">
 </form>';
 
-// Mostrar el mensaje si existe
 if ($mensaje) {
     $content .= "<p class='message'>$mensaje</p>";
 }

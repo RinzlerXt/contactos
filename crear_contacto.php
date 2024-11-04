@@ -5,7 +5,6 @@ if (!isset($_SESSION['usuario_id'])) {
     exit();
 }
 
-// Incluir el archivo de configuración
 include('config.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -14,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correo = $_POST['correo'];
     $usuario_id = $_SESSION['usuario_id'];
 
-    // Validación del formato del teléfono en PHP
     if (!preg_match('/^(\d{3}-\d{3}-\d{4}|\d{10})$/', $telefono)) {
         $mensaje = "Error: El número de teléfono debe tener el formato 123-456-7890 o 1234567890.";
     } else {
