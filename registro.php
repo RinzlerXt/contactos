@@ -9,25 +9,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre_usuario = $_POST['nombre_usuario'];
     $correo = $_POST['correo'];
     $contrasena = $_POST['contrasena'];
-    $contrasena_hashed = password_hash($contrasena, PASSWORD_BCRYPT);
 
-    // Verificar si el correo ya está registrado
-    $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE correo = :correo");
-    $stmt->bindParam(":correo", $correo);
-    $stmt->execute();
-    if ($stmt->fetch()) {
-        $error = "Este correo ya está registrado.";
+    if (strlen($contrasena) < 8) {
+        $error = "La contraseña debe tener al menos 8 caracteres.";
     } else {
-        // Insertar nuevo usuario en la base de datos
-        $stmt = $pdo->prepare("INSERT INTO usuarios (nombre_usuario, correo, contrasena) VALUES (:nombre_usuario, :correo, :contrasena)");
-        $stmt->bindParam(":nombre_usuario", $nombre_usuario);
-        $stmt->bindParam(":correo", $correo);
-        $stmt->bindParam(":contrasena", $contrasena_hashed);
+        $contrasena_hashed = password_hash($contrasena, PASSWORD_BCRYPT);
 
-        if ($stmt->execute()) {
-            $success = "Registro exitoso. Puedes <a href='login.php'>iniciar sesión aquí</a>.";
+        $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE correo = :correo");
+        $stmt->bindParam(":correo", $correo);
+        $stmt->execute();
+        if ($stmt->fetch()) {
+            $error = "Este correo ya está registrado.";
         } else {
-            $error = "Hubo un error al registrarse. Inténtalo de nuevo.";
+            $stmt = $pdo->prepare("INSERT INTO usuarios (nombre_usuario, correo, contrasena) VALUES (:nombre_usuario, :correo, :contrasena)");
+            $stmt->bindParam(":nombre_usuario", $nombre_usuario);
+            $stmt->bindParam(":correo", $correo);
+            $stmt->bindParam(":contrasena", $contrasena_hashed);
+
+            if ($stmt->execute()) {
+                $success = "Registro exitoso. Puedes <a href='login.php'>iniciar sesión aquí</a>.";
+            } else {
+                $error = "Hubo un error al registrarse. Inténtalo de nuevo.";
+            }
         }
     }
 }
@@ -47,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form action="registro.php" method="POST">
             <input type="text" name="nombre_usuario" placeholder="Nombre de usuario" required>
             <input type="email" name="correo" placeholder="Correo electrónico" required>
-            <input type="password" name="contrasena" placeholder="Contraseña" required>
+            <input type="password" name="contrasena" placeholder="Contraseña" minlength="8" required>
             <input type="submit" value="Registrarse">
         </form>
         <?php if ($error): ?>
@@ -61,4 +64,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </body>
 </html>
+
 

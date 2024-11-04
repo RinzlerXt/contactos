@@ -16,66 +16,68 @@ body {
 
 @keyframes gradientAnimation {
     0% {
-        background-position: 0% 50%; /* Comienza en la posición inicial */
+        background-position: 0% 50%;
     }
     50% {
-        background-position: 100% 50%; /* Cambia a la posición final */
+        background-position: 100% 50%;
     }
     100% {
-        background-position: 0% 50%; /* Regresa a la posición inicial */
+        background-position: 0% 50%;
     }
 }
+
 .container {
-    display: flex; /* Usar flexbox para disposición */
+    display: flex;
 }
 
-/* Estilos del menú lateral */
 .sidebar {
-    width: 250px; /* Ancho del menú */
-    background-color: #343a40; /* Color de fondo */
+    width: 250px;
+    background-color: #343a40;
     color: white;
-    padding: 20px; /* Espaciado interno */
-    position: fixed; /* Fijo en la izquierda */
-    height: 100%; /* Altura completa */
+    padding: 20px;
+    position: fixed;
+    height: 100%;
 }
 
 .sidebar h2 {
-    margin: 0 0 20px 0; /* Margen inferior */
+    margin: 0 0 20px 0;
 }
 
 .sidebar ul {
-    list-style-type: none; /* Sin viñetas */
-    padding: 0; /* Sin relleno */
+    list-style-type: none;
+    padding: 0;
 }
 
 .sidebar ul li {
-    margin: 10px 0; /* Margen entre elementos */
+    margin: 10px 0;
 }
 
 .sidebar ul li a {
-    color: white; /* Color del texto */
-    text-decoration: none; /* Sin subrayado */
-    display: flex; /* Flex para icono y texto */
-    align-items: center; /* Centrar verticalmente */
-    padding: 10px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
-    transition: background 0.3s; /* Transición suave */
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
 }
 
 .sidebar ul li a:hover {
-    background: #495057; /* Color de fondo al pasar el ratón */
+    background: #495057;
 }
 
-/* Estilos del contenido principal */
 .content {
-    margin-left: 270px; /* Dejar espacio para el menú */
-    padding: 20px; /* Espaciado interno */
-    flex-grow: 1; /* Crecer para llenar el espacio */
+    margin-left: 270px;
+    padding: 20px;
+    flex-grow: 1;
 }
-/* Estilos del pie de página */
+
 .title {
-    text-align: center; /* Centrar texto */
-    margin: 20px 0; /* Margen superior e inferior */
-    font-size: 2em; /* Tamaño de fuente */
-    color: #ffffff; /* Color del texto (puedes cambiarlo) */
+    text-align: center;
+    margin: 20px 0;
+    font-size: 2em;
+    color: #ffffff;
+}
+i{
+    padding: 5px;
 }

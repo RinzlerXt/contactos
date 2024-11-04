@@ -3,6 +3,7 @@ session_start();
 require 'config.php';
 
 $error = '';
+$correo = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = $_POST['correo'];
@@ -19,10 +20,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: home.php");
         exit();
     } else {
-        $error = "Correo o contraseña incorrectos.";
+        $error = "Correo o contraseña incorrectos. Por favor, inténtalo de nuevo.";
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -35,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="login-container">
         <h2>Iniciar Sesión</h2>
         <form action="login.php" method="POST">
-            <input type="email" name="correo" placeholder="Correo electrónico" required>
+            <input type="email" name="correo" placeholder="Correo electrónico" value="<?php echo htmlspecialchars($correo); ?>" required>
             <input type="password" name="contrasena" placeholder="Contraseña" required>
             <input type="submit" value="Ingresar">
         </form>
